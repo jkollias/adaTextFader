@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Text Fader</title>
+</head>
+<body>
+
+	<style>
+		.text-fader{
+			display:  grid;
+			grid-template-rows: auto;
+			outline:  1px solid #f00;
+			text-align:  center;
+		}
+
+		.text-fadder-message{
+			opacity: 1;
+			grid-row:  -1 / 1;
+			grid-column:  -1 / 1;
+			opacity:  0;
+		}
+
+		.fade-in-text{
+			opacity: 1;
+			transition: opacity 1s;
+		}
+
+		.show-fade-text{
+			opacity: 1;
+		}
+
+		.fade-out-text{
+			transition: opacity 1s;
+			opacity:  0;
+		}
+
+
+		
+	</style>
+
+	<div class="text-fader">
+		<div class="text-fadder-message">
+			3 Ways to Ship: FREE $30+ / VIP $1.99 / Standard $3.99 (US Only)
+		</div>
+		<div class="text-fadder-message">
+			Pick Your Free Gift with $35+ Purchase
+		</div>
+	</div>
+
+	<script>
+		
+
+		const textFader = document.querySelector('.text-fader');
+		const firstSent = textFader.querySelector('div');
+		const msgs = document.querySelectorAll('.text-fader > div.text-fadder-message')
+
+		function calculateMilliSeconds(sentence){
+			let calculate = Math.round( sentence.innerText.length / 5) * 1;
+			//console.log("Seconds "+calculate);
+			return calculate;
+		}
+
+		function fadeInSentence(msg){
+			//console.log("Fade in Sentence");
+			msg.classList.add("fade-in-text");
+		}
+
+		function showSentence(msg){
+			msg.classList.remove("fade-in-text");
+			msg.classList.add("show-fade-text");
+			//console.log("Show Sentence");	
+		}
+
+
+		function fadeOutSentence(msg){
+			msg.classList.remove("show-fade-text");
+			msg.classList.add("fade-out-text");
+			//console.log("Fade out");
+		}
+
+		function removeFadeOutClass(msg){
+			msg.classList.remove("fade-out-text");
+		}	
+
+		function sentenceAnimation(i, msg, delay){
+			// console.log("i: "+i);
+			// console.log("Delay: "+delay);
+
+			//console.log(calculateMilliSeconds(msg));
+			if(i == delay){
+				fadeInSentence(msg)
+			}else if(i == (calculateMilliSeconds(msg) + delay)){
+				showSentence(msg)
+			}else if(i == calculateMilliSeconds(msg) + delay + 1){
+				fadeOutSentence(msg);
+			}else if(i == calculateMilliSeconds(msg) + delay + 2){
+				removeFadeOutClass(msg);
+			}
+		}
+
+		
+		let limit = calculateMilliSeconds(msgs[0]) + calculateMilliSeconds(msgs[1]) + 3;
+		let i = 0;
+		setInterval(function() {
+			
+			sentenceAnimation(i, msgs[0], 0);
+			sentenceAnimation(i, msgs[1], 14);
+
+			i++;
+			console.log(i);
+			if(i == limit){
+				i = 0;
+			}
+
+		}, 1000);
+
+	    console.log(limit);
+
+		
+	</script>
+	
+
+
+	
+</body>
+</html>

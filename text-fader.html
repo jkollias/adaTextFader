@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Text Fader</title>
+</head>
+<body>
+
+	<style>
+		.text-fader{
+			display:  grid;
+			grid-template-rows: auto;
+			outline:  1px solid #f00;
+			text-align:  center;
+		}
+
+		.text-fadder-message{
+			opacity: 1;
+			grid-row:  -1 / 1;
+			grid-column:  -1 / 1;
+			opacity:  0;
+		}
+
+		.fade-in-text{
+			opacity: 1;
+			transition:  opacity 1s;
+		}
+
+		.fade-out-text{
+			opacity: 0;
+			transition:  opacity 1s;
+		}
+
+
+	</style>
+
+	<div class="text-fader">
+		<div class="text-fadder-message " >Hello World</div>
+		<div class="text-fadder-message" >Hello World2</div>
+	</div>
+
+	<script>
+		class TextFader{
+			
+			constructor(container){
+				this.container = container;
+				this.getAllMessages();
+			}
+
+			calculateMilliSeconds(sentence){
+				let calculate = Math.round( sentence.innerText.length / 5) * 1000;
+				//console.log("Seconds "+calculate);
+				return calculate;
+			}
+
+			fadeTextIn(el){
+				el.classList.remove("fade-out-text");
+				el.classList.add("fade-in-text");
+			}
+
+			// addFadeTextInClass(el) {
+			// 	setTimeout(
+			// 		this.fadeTextIn(el),  
+			// 		this.calculateMilliSeconds(el)
+			// 	);
+			// }
+
+			addFadeTextInClass(el){
+				setTimeout(
+					//this.addFadeTextInClass(el),
+					console.log(el),
+					1000
+				);
+			}
+
+			removeFadeTextInClassAndAddFadeTextOut(el) {
+				setTimeout(
+					//this.fadeTextout(el),  
+					//this.calculateMilliSeconds(el)
+					console.log(el),
+					2000
+				);
+			}
+
+
+			// showText(el){
+			// 	el.classList.add("show-text");
+			// 	el.classList.remove("fade-in-text");
+			// }
+
+			fadeTextOut(){
+				el.classList.remove("show-text");
+				el.classList.add("fade-out-text");
+			}
+
+			textDuration(sentence){
+
+			}
+
+			getAllMessages(){
+				let messages = document.querySelectorAll( "."+this.container +" > div");
+				let first = messages[0];
+				//this.calculateMilliSeconds(first);
+				// this.addFadeTextInClass(first);
+				// this.removeFadeTextInClassAndAddFadeTextOut(first);
+			}
+
+		}
+
+		const txtFader = new TextFader("text-fader");
+		
+		function
+	</script>
+	
+
+
+	
+</body>
+</html>

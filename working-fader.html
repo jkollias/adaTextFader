@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Fader</title> 
+</head>
+<body>
+    <script src="jquery-ui-1.13.0/external/jquery/jquery.js"></script>
+    <script src="jquery-ui-1.13.0/jquery-ui.js"></script>
+
+    <style>
+        .text-fader{
+            text-align:  center;
+            display:  grid;
+            padding:  1em;
+            outline:  1px solid #aaa;
+        }
+
+        .text-fader--message{
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        .text-fader--message{ 
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .text-fader--message.active{
+            opacity: 1;
+             transition: opacity 1s;
+        }
+
+    </style>
+
+    <div class="text-fader">
+        <div class="text-fader--message">Hello World</div>
+        <div class="text-fader--message">Hello World Hello World Hello World</div>
+        <div class="text-fader--message">3 Ways to Ship: FREE $30+</div>
+    </div>
+
+    <button onClick="goToPrevMessage();">Previous</button>
+    <button onClick="pauseSlider();">Pause</button>
+    <button onClick="goToNexMessage();">Next</button>
+
+    <script>
+        const msgs = document.querySelectorAll(".text-fader > div");
+        const lastMsg = msgs[msgs.length];
+  
+
+        function calcSeconds(msgLength){
+            let secPerWord = msgLength.innerHTML.length;
+            secPerWord = Math.round(secPerWord / 5);
+            return secPerWord;
+        }
+
+
+        function totalSeconds(){
+            let total = calcSeconds( msgs[0] ) + 
+                        calcSeconds( msgs[1] ) + 
+                        calcSeconds( msgs[2] );
+            return total;
+        }
+        
+
+        // function transitionMessage(delay,msg1,msg2){
+        //     if(msg1 == lastMsg){
+        //         msg1.classList.remove("active");
+        //         msg2.classList.toggle("active");
+        //     }else if(delay <= 1){
+        //         msg1.classList.toggle("active");
+        //         msg1.classList.toggle("active");
+        //     }
+            
+        // }
+
+        
+
+        function faddingMessages(i){
+
+            if( (i <= 1)){ 
+                msgs[2].classList.remove("active");
+                msgs[0].classList.toggle("active");
+            } 
+            if ( i == calcSeconds(msgs[0]) ){
+                msgs[0].classList.toggle("active");
+                msgs[1].classList.toggle("active");
+            } 
+            if ( i ==  (calcSeconds(msgs[0]))+calcSeconds(msgs[1]) ){
+                msgs[1].classList.toggle("active");
+                msgs[2].classList.toggle("active");
+            }   
+            
+        }
+
+        let i = 0;
+        setInterval( function(){
+            console.log(i);
+            i++;
+            faddingMessages(i);
+            if(i == totalSeconds()){
+                i = 0;
+            }
+        } ,1000);
+    </script>
+</body>
+</html>

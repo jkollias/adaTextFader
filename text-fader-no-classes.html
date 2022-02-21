@@ -64,7 +64,7 @@
 
 		function fadeInSentence(msg){
 			//console.log("Fade in Sentence");
-			msg.classList.add("fade-in-text");
+			//msg.classList.add("fade-in-text");
 		}
 
 		function showSentence(msg){
@@ -102,19 +102,16 @@
 
 		
 		let limit = calculateMilliSeconds(msgs[0]) + calculateMilliSeconds(msgs[1]) + 3;
-		let i = 0;
-		setInterval(function() {
-			
-			sentenceAnimation(i, msgs[0], 0);
-			sentenceAnimation(i, msgs[1], 14);
+		
+		function fadeInSentence(interval, delay, sentance){
+			let i = delay;
+			setInterval(function() {
+				
+				let opacity =sentence.style.opacity = ;
 
-			i++;
-			console.log(i);
-			if(i == limit){
-				i = 0;
-			}
-
-		}, 1000);
+			}, 1000);
+		}
+		
 
 	    console.log(limit);
 

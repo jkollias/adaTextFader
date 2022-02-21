@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Text Fader</title>
+</head>
+<body>
+
+	<style>
+		.text-fader{
+			display:  grid;
+			grid-template-rows: auto;
+			outline:  1px solid #f00;
+			text-align:  center;
+		}
+
+		.text-fadder-message{
+			opacity: 1;
+			grid-row:  -1 / 1;
+			grid-column:  -1 / 1;
+			opacity:  0;
+		}
+
+		.fade-in-text{
+			opacity: 1;
+			transition:  opacity 1s;
+		}
+
+		.fade-out-text{
+			opacity: 0;
+			transition:  opacity 1s;
+		}
+
+
+	</style>
+
+	<div class="text-fader">
+		<div class="text-fadder-message">Hello World</div>
+		<div class="text-fadder-message">Hello World2</div>
+	</div>
+
+	<script>
+		class TextFader{
+			
+			constructor(container){
+				this.container = container;
+			}
+
+			calculateMilliSeconds(sentence){
+				let calculate = Math.round( sentence.innerText.length / 5) * 1000;
+				return calculate;
+			}
+
+			textDuration(sentence){
+                return sentence.length;
+			}
+
+			getAllMessages(){
+				let messages = document.querySelectorAll( "."+this.container +" > div");
+                return messages;
+			}
+
+            createMsgArray(){
+                let msgsArray = [];
+                let msgs = this.getAllMessages();
+                for(let msg of msgs){
+                    msgsArray.push(msg.textContent);
+                }
+                return msgsArray;
+            }
+
+            createTimeObj(delay,duration){
+                let obj = {};
+                obj.delay = delay;
+                obj.duration = duration;
+                return obj;
+            }
+
+
+            loopThroughEachSentence(){
+                let i = 0;
+                let msgs = this.createMsgArray();
+                let delay = 0;
+                let timeArr = [];
+                // console.log(msgs);
+                for( let msg of msgs){  
+                    let itemObj = this.createTimeObj(delay, this.textDuration(msg));
+                    delay += this.textDuration(msg); 
+                    timeArr.push(itemObj);
+                    i++;
+
+                }
+                console.log(timeArr);
+
+            }
+
+            fadingAnimation(){
+                setInterval(() => {
+                    
+                }, 1000);
+            }
+                
+
+		}
+
+		const txtFader = new TextFader("text-fader");
+        txtFader.loopThroughEachSentence();
+        //txtFader.createMsgArray();
+        //console.log( txtFader.getAllMessages() );
+       
+	</script>
+	
+
+
+	
+</body>
+</html>
